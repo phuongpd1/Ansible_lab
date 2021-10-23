@@ -1,0 +1,15 @@
+- name: checking service status
+  hosts: k8s_server
+  tasks:
+  - name: checking service status
+    command: systemctl status "{{ item }}"
+    with_items:
+    - firewalld
+    - httpd
+    - nginx
+    - sshd
+    register: result
+    ignore_errors: yes
+  - name: showing report
+    debug:
+     var: result
